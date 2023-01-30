@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation"
+    app:startDestination="@id/contacteFragment">
+
+    <fragment
+        android:id="@+id/contacteFragment"
+        android:name="com.example.projectacafateria20.view.fragments.ContacteFragment"
+        android:label="ContacteFragment" />
+    <fragment
+        android:id="@+id/historialComandesFragment"
+        android:name="com.example.projectacafateria20.view.fragments.HistorialComandesFragment"
+        android:label="HistorialComandesFragment" />
+    <fragment
+        android:id="@+id/iniciFragment"
+        android:name="com.example.projectacafateria20.view.fragments.IniciFragment"
+        android:label="IniciFragment" />
+    <fragment
+        android:id="@+id/pagarComandaFragment"
+        android:name="com.example.projectacafateria20.view.fragments.PagarComandaFragment"
+        android:label="PagarComandaFragment" />
+    <fragment
+        android:id="@+id/preguntesFrequentsFragment"
+        android:name="com.example.projectacafateria20.view.fragments.PreguntesFrequentsFragment"
+        android:label="PreguntesFrequentsFragment" />
+    <fragment
+        android:id="@+id/primerPlatFragment"
+        android:name="com.example.projectacafateria20.view.fragments.PrimerPlatFragment"
+        android:label="PrimerPlatFragment" />
+    <fragment
+        android:id="@+id/segonPlatFragment"
+        android:name="com.example.projectacafateria20.view.fragments.SegonPlatFragment"
+        android:label="SegonPlatFragment" />
+    <fragment
+        android:id="@+id/tercerPlatFragment"
+        android:name="com.example.projectacafateria20.view.fragments.TercerPlatFragment"
+        android:label="TercerPlatFragment" />
+</navigation>
