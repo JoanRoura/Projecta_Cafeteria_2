@@ -21,9 +21,9 @@ class CafeteriaViewmodel : ViewModel() {
         Repositori.insertUsuari(context, usuari);
     }
 
-    fun obtenirPlats(context: Context):  LiveData<List<Plat>>? {
+    fun obtenirPlats(context: Context, categoria: Int):  LiveData<List<Plat>>? {
 
-        plat = Repositori.getPlat(context)
+        plat = Repositori.getPlats(context, categoria)
         return plat
     }
 

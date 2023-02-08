@@ -1,60 +1,94 @@
 package com.example.projectacafateria20.view.fragments
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.projectacafateria20.R
+import com.example.projectacafateria20.databinding.FragmentPrimerPlatBinding
+import com.example.projectacafateria20.viewmodel.CafeteriaViewmodel
+import com.example.projectacafateria20.viewmodel.listAdapter.PlatAdapter
+import com.example.projectacafateria20.viewmodel.listAdapter.RecyclerClickListener
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
+import com.example.projectacafateria20.viewmodel.CafeteriaSharedViewModel.Companion.listPlats
+import com.example.projectacafateria20.viewmodel.CafeteriaSharedViewModel.Companion.listPreus
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PrimerPlatFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PrimerPlatFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    lateinit var binding: FragmentPrimerPlatBinding
+    lateinit var cafeteriaViewmodel: CafeteriaViewmodel
+    private lateinit var adapter: PlatAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_primer_plat, container, false)
+
+        binding = DataBindingUtil.inflate<FragmentPrimerPlatBinding>(
+            inflater,
+            R.layout.fragment_primer_plat,
+            container,
+            false
+        );
+
+        cafeteriaViewmodel = ViewModelProvider(this).get(CafeteriaViewmodel::class.java)
+
+        setRecyclerView()
+        observeClient()
+
+        binding.buttonGoToSegonPlat.setOnClickListener {
+            view?.findNavController()
+                ?.navigate(R.id.action_primerPlatFragment_to_segonPlatFragment);
+        }
+
+        return binding.root
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PrimerPlatFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PrimerPlatFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun setRecyclerView() {
+
+        val platsRecyclerview = binding.recyclerViewPrimersPlats
+        platsRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        platsRecyclerview.setHasFixedSize(true)
+
+        adapter = PlatAdapter()
+
+        adapter.setItemListener(object : RecyclerClickListener {
+            override fun onItemClick(position: Int) {
+                val primersPlatsList = adapter.currentList.toMutableList().get(position)
+                Toast.makeText(
+                    requireContext(),
+                    "Nom: ${primersPlatsList.nom} , Preu: ${primersPlatsList.preu}€",
+                    Toast.LENGTH_SHORT
+                ).show()
+                listPlats.add(primersPlatsList.nom)
+                listPreus.add(primersPlatsList.preu)
+
             }
+        })
+        platsRecyclerview.adapter = adapter
     }
+
+    private fun observeClient() {
+        cafeteriaViewmodel.obtenirPlats(requireContext(), 1)!!
+            .observe(viewLifecycleOwner, Observer { llistaPrimersPlats ->
+                adapter.submitList(llistaPrimersPlats)
+            })
+    }
+
+    //TODO: Menu superior
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        super.onCreateOptionsMenu(menu, inflater)
+//        inflater.inflate(R.menu.options_menu, menu)
+//    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
+                || super.onOptionsItemSelected(item)
+    }
+
 }

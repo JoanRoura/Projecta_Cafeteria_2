@@ -20,6 +20,9 @@ class LoginActivity : AppCompatActivity() {
 
         cafeteriaViewmodel = ViewModelProvider(this).get(CafeteriaViewmodel::class.java)
 
+        val intentRegisterActivity = Intent(this, RegisterActivity::class.java)
+        val intentMainActivity = Intent(this, MainActivity::class.java)
+
         var buttonLogin = findViewById<Button>(R.id.buttonLogin)
         var buttonRegister = findViewById<Button>(R.id.buttonRegister)
 
@@ -30,13 +33,12 @@ class LoginActivity : AppCompatActivity() {
 
             cafeteriaViewmodel.loginClient(this, nomUsuari, contrasenyaUsuari)!!.observe(this, Observer { llistaUsuaris ->
                 Toast.makeText(this,"Bienvenido: ${llistaUsuaris[0].nom}" , Toast.LENGTH_SHORT).show()
-                val intentMainActivity = Intent(this, MainActivity::class.java)
+
                 startActivity(intentMainActivity)
             })
         }
 
         buttonRegister.setOnClickListener {
-            val intentRegisterActivity = Intent(this, RegisterActivity::class.java)
             startActivity(intentRegisterActivity)
         }
     }

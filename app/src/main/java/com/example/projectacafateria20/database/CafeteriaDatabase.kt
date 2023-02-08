@@ -8,9 +8,9 @@ import com.example.projectacafateria20.model.Plat
 import com.example.projectacafateria20.model.Usuari
 
 @Database(
-    entities = [Plat::class, Usuari::class],
+    entities = [Plat::class,Usuari::class],
     version = 1,
-    exportSchema = false
+    exportSchema = true
 )
 abstract class CafeteriaDatabase : RoomDatabase() {
     abstract fun CafeteriaDAO() : CafeteriaDAO
@@ -38,7 +38,7 @@ abstract class CafeteriaDatabase : RoomDatabase() {
                 context.applicationContext,
                 CafeteriaDatabase::class.java,
                 "cafeteria_database"
-            )  //TODO: Fer el populate aqui
+            ).createFromAsset("databases/cafeteria.db")
                 .build()
 
         }

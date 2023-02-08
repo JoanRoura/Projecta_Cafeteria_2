@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/navigation"
-    app:startDestination="@id/contacteFragment">
+    app:startDestination="@id/iniciFragment">
 
     <fragment
         android:id="@+id/contacteFragment"
@@ -15,11 +15,19 @@
     <fragment
         android:id="@+id/iniciFragment"
         android:name="com.example.projectacafateria20.view.fragments.IniciFragment"
-        android:label="IniciFragment" />
+        android:label="IniciFragment" >
+        <action
+            android:id="@+id/action_iniciFragment_to_primerPlatFragment"
+            app:destination="@id/primerPlatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/pagarComandaFragment"
         android:name="com.example.projectacafateria20.view.fragments.PagarComandaFragment"
-        android:label="PagarComandaFragment" />
+        android:label="PagarComandaFragment" >
+        <action
+            android:id="@+id/action_pagarComandaFragment_to_iniciFragment"
+            app:destination="@id/iniciFragment" />
+    </fragment>
     <fragment
         android:id="@+id/preguntesFrequentsFragment"
         android:name="com.example.projectacafateria20.view.fragments.PreguntesFrequentsFragment"
@@ -27,13 +35,25 @@
     <fragment
         android:id="@+id/primerPlatFragment"
         android:name="com.example.projectacafateria20.view.fragments.PrimerPlatFragment"
-        android:label="PrimerPlatFragment" />
+        android:label="PrimerPlatFragment" >
+        <action
+            android:id="@+id/action_primerPlatFragment_to_segonPlatFragment"
+            app:destination="@id/segonPlatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/segonPlatFragment"
         android:name="com.example.projectacafateria20.view.fragments.SegonPlatFragment"
-        android:label="SegonPlatFragment" />
+        android:label="SegonPlatFragment" >
+        <action
+            android:id="@+id/action_segonPlatFragment_to_tercerPlatFragment"
+            app:destination="@id/tercerPlatFragment" />
+    </fragment>
     <fragment
         android:id="@+id/tercerPlatFragment"
         android:name="com.example.projectacafateria20.view.fragments.TercerPlatFragment"
-        android:label="TercerPlatFragment" />
+        android:label="TercerPlatFragment" >
+        <action
+            android:id="@+id/action_tercerPlatFragment_to_pagarComandaFragment"
+            app:destination="@id/pagarComandaFragment" />
+    </fragment>
 </navigation>

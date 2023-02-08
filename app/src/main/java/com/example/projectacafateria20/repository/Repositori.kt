@@ -56,10 +56,10 @@ class Repositori {
             }
         }
 
-        fun getPlat(context: Context): LiveData<List<Plat>>? {
+        fun getPlats(context: Context, categoria: Int): LiveData<List<Plat>>? {
             cafeteriaDatabase = initializeDB(context)
 
-            plat = cafeteriaDatabase!!.CafeteriaDAO().getPlat()
+            plat = cafeteriaDatabase!!.CafeteriaDAO().getPlats(categoria)
             return plat;
         }
 

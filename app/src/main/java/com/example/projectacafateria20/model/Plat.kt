@@ -9,9 +9,12 @@ data class Plat (
     @ColumnInfo(name = "name")
     var nom : String,
     @ColumnInfo(name = "price")
-    var preu : String,
+    var preu : Int,
     @ColumnInfo(name = "image")
     var imatge : String,
+    @ColumnInfo(name = "category")
+    var categoria : Int
+
 ){
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null

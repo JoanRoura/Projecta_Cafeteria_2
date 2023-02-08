@@ -23,22 +23,27 @@ class RegisterActivity : AppCompatActivity() {
         var buttonRegister = findViewById<Button>(R.id.buttonRegistrarse)
         var buttonCancelar = findViewById<Button>(R.id.buttonCancelar)
 
-        var nom = findViewById<EditText>(R.id.editTextNomUsuari).text.toString()
-        var constrasenya = findViewById<EditText>(R.id.editTextTextContrasenyaUsuari).text.toString()
-        var correu = findViewById<EditText>(R.id.editTextTextCorreuUsuari).text.toString()
+        var nom = findViewById<EditText>(R.id.editTextNomUsuari).text
+        var constrasenya = findViewById<EditText>(R.id.editTextTextContrasenyaUsuari).text
+        var correu = findViewById<EditText>(R.id.editTextTextCorreuUsuari).text
+
+        val intentLoginActivity = Intent(this, LoginActivity::class.java)
 
         buttonRegister.setOnClickListener {
 
-            if (nom != "" && constrasenya !=  "" && correu != "") {
-                cafeteriaViewmodel.nouClient(this, nom, constrasenya, correu)
+            if (nom.isNotEmpty() && constrasenya.isNotEmpty() && correu.isNotEmpty()) {
+                cafeteriaViewmodel.nouClient(this, nom.toString(), constrasenya.toString(), correu.toString())
 
                 Toast.makeText(this, "S'ha creat el usuari.", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                startActivity(intentLoginActivity)
             } else {
                 Toast.makeText(this, "Sisplau emplena tots els camps.", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        buttonCancelar.setOnClickListener {
+            startActivity(intentLoginActivity)
         }
     }
 }
